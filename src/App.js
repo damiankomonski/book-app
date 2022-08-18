@@ -1,6 +1,9 @@
 import './App.scss';
 import Header from "./Header/Header";
 import Slider from "./Slider/Slider";
+import Search from "./Search/Search";
+import Results from "./Results/Results";
+import Footer from "./Footer/Footer";
 
 /*
 API Link:
@@ -12,6 +15,9 @@ function App() {
     <>
       <Header />
       <Slider />
+      <Search />
+      <Results />
+      <Footer />
     </>
   );
 }

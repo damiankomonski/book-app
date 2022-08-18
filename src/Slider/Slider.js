@@ -6,18 +6,18 @@ import Col from "react-bootstrap/Col";
 
 function Slider(){
     return (
-        <div className="my-5">
+        <section className="my-4">
             <Container>
                 <Row>
                     <Col xs={12}>
                         <h1 className="display-5 fw-bold">Search book and read!</h1>
                         <div className="col-lg-6">
-                            <p className="lead mb-4">Find book you are interesting.</p>
+                            <p className="lead">Find book you that interests you.</p>
                         </div>
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </section>
     );
 }
 
