@@ -1,5 +1,37 @@
-@import "~bootstrap/scss/bootstrap";
+//Main variables
+// $body-color: #000000;
 
+// Colors
+// $primary: #000000;
+
+// Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  24: 1.5rem
+);
+
+// Import Bootstrap 5
+@import "./../node_modules/bootstrap/scss/_functions";
+@import "./../node_modules/bootstrap/scss/_variables";
+
+// Colors
+$custom-theme-color: (
+);
+$theme-colors: map-merge($custom-theme-color, $theme-colors);
+
+// Import Bootstrap 5
+@import "./../node_modules/bootstrap/scss/bootstrap.scss";
+
+// Import Bootstrap 5 Icons
+@import "./../node_modules/bootstrap-icons/font/bootstrap-icons";
+
+// Application
 body{
     height: 100vh;
 }
@@ -8,4 +40,13 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+a{
+    text-decoration: none;
+}
+
+// Typography
+h2, .h2{
+    margin-bottom: 2.5rem;
 }

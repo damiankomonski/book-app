@@ -1,9 +1,9 @@
+import React from 'react';
 import './App.scss';
-import Header from "./Header/Header";
-import Slider from "./Slider/Slider";
-import Search from "./Search/Search";
-import Results from "./Results/Results";
-import Footer from "./Footer/Footer";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Homepage from "./routes/Homepage";
 
 /*
 API Link:
@@ -14,9 +14,9 @@ function App() {
   return (
     <>
       <Header />
-      <Slider />
-      <Search />
-      <Results />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+      </Routes>
       <Footer />
     </>
   );
