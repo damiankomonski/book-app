@@ -9,7 +9,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 function Search(){
     return (
-        <section className="mb-4">
+        <section className="mb-5">
             <Container>
                 <Row>
                     <Col xs={12}>

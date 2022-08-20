@@ -1,27 +1,27 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import "./AllBooks.scss";
+import "./ArtsBooks.scss";
 import BookItem from "./../BookItem/BookItem";
 
-function AllBooks(){
-    
+function ArtsBooks(){
 
     return (
         <div>
             <Container>
                 <Row>
                     <Col xs={12}>
-                        <h2>All books</h2>
+                        <h2>Arts books</h2>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={6} md={4} lg={3}>
-                        <BookItem />
-                    </Col>
+                    <BookItem />
+                    <BookItem />
+                    <BookItem />
+                    <BookItem />
                 </Row>
             </Container>
         </div>
     );
 }
 
-export default AllBooks;
+export default ArtsBooks;
