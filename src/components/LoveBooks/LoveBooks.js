@@ -5,36 +5,52 @@ import BookItem from "./../BookItem/BookItem";
 
 function LoveBooks(){
     let [books, setBooks] = useState([]);
+    let [isLoader, setIsLoaded] = useState(false);
 
-    function getLoveBooks(amountBooks){
-        let worksIDs = [];
+    function getLoveBooks(){
+        let booksIDs = [];
 
-        return fetch("http://openlibrary.org/subjects/love.json?limit=" + amountBooks)
+        return fetch("http://openlibrary.org/subjects/love.json?limit=8")
             .then(response => response.json())
             .then((data) => {
-                worksIDs = data.works.map(element => element.key.slice(7));
-                return worksIDs;
+                booksIDs = data.works.map(element => element.lending_edition);
+                return booksIDs;
             });
     }
 
-    function getBookFromWork(workID){
-
+    function getBook(bookID){
+        return fetch("https://openlibrary.org/api/books?jscmd=data&bibkeys=OLID:" + bookID + "&format=json")
+            .then(response => response.json())
+            .then((data) => {
+                let key = "OLID:" + bookID;
+                return data[key];
+            });
     }
 
     useEffect(() => {
-        getLoveBooks(8).then((data) => {
+        let booksID = [];
 
-            console.log(data);
+        getLoveBooks()
+            .then((data) => {
+                booksID = data;
 
-            data.forEach((element) => {
-                getBookFromWork(element);
-            });
+                booksID.forEach((element) => {
+                    getBook(element)
+                        .then((response) => {
+                            let booksArray = books;
+                            booksArray.push(response);
 
+                            setBooks(booksArray);
+
+                            console.log(books);
+                        });
+                });
         });
     });
 
     return (
         <div>
+            
             <Container>
                 <Row>
                     <Col xs={12}>
