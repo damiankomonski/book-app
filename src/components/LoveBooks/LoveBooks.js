@@ -1,31 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./LoveBooks.scss";
 import BookItem from "./../BookItem/BookItem";
 
 function LoveBooks(){
-    // const [books, setBooks] = useState(null);
+    let [books, setBooks] = useState([]);
 
-    function getBook(workID){
-        let BookID = null;
+    function getLoveBooks(amountBooks){
+        let worksIDs = [];
 
-        fetch("http://openlibrary.org/search.json?q=" + workID).then(res => res.json()).then(data => {
-            BookID = data.docs[0].seed[0].substr(7);
+        return fetch("http://openlibrary.org/subjects/love.json?limit=" + amountBooks)
+            .then(response => response.json())
+            .then((data) => {
+                worksIDs = data.works.map(element => element.key.slice(7));
+                return worksIDs;
+            });
+    }
 
-            console.log(BookID);
+    function getBookFromWork(workID){
 
-            fetch("https://openlibrary.org/api/books?bibkeys=OLID:" + BookID).then(res => res.json()).then(data => console.log(data));
-        });
-    };
+    }
 
     useEffect(() => {
-        let booksData = null;
+        getLoveBooks(8).then((data) => {
 
-        let query = fetch("http://openlibrary.org/subjects/love.json?limit=8");    
-        query.then(res => res.json()).then((data) => {
-            booksData = data;
-            console.log(booksData.works[0].key.substr(7));
-            getBook(booksData.works[0].key.substr(7));
+            console.log(data);
+
+            data.forEach((element) => {
+                getBookFromWork(element);
+            });
+
         });
     });
 
