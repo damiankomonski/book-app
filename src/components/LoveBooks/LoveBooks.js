@@ -2,20 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import "./LoveBooks.scss";
 import BookItem from "./../BookItem/BookItem";
+import NoCoverImg from "./../../img/no-cover.png";
 
 function LoveBooks(){
     let [books, setBooks] = useState([]);
     let [isLoading, setIsLoading] = useState(true);
 
     function getLoveBooks(){
-        let booksIDs = [];
+        let worksIDs = [];
 
-        return fetch("http://openlibrary.org/subjects/love.json?limit=8")
+        return fetch("http://openlibrary.org/subjects/love.json?limit=4")
             .then(response => response.json())
             .then((data) => {
-                booksIDs = data.works.map(element => element.lending_edition);
-                return booksIDs;
+                worksIDs = data.works.map(element => element.key.slice(7));
+                return worksIDs;
             });
+    }
+
+    function getBookIDFromWork(workID){
+        return fetch("https://openlibrary.org/works/" + workID + "/editions.json?limit=1")
+            .then(res => res.json())
+            .then(data => data.entries[0].key.slice(7));
     }
 
     function getBook(bookID){
@@ -28,31 +35,34 @@ function LoveBooks(){
     }
 
     useEffect(() => {
-        let booksID = [];
-        let booksData = [];
+        let worksIDs = [];
 
         getLoveBooks()
             .then((data) => {
-                booksID = data;
-                let allPromises = [];
+                let promisesArray = [];
 
-                booksID.forEach((element) => {
-                    allPromises.push(getBook(element));
+                data.forEach(element => {
+                    promisesArray.push(getBookIDFromWork(element));    
+                })
 
-                    // getBook(element)
-                    //     .then((response) => {
-                    //         booksData.push(response);
-                    //         console.log(booksData);
-                    //     });
+                return Promise.all(promisesArray);
+            })
+            .then(response => {
+                let promisesArray = [];
+
+                response.forEach(element => {
+                    promisesArray.push(getBook(element));
                 });
 
-                Promise.all(allPromises)
-                    .then(values => {
-                        setBooks(values);
-                        setIsLoading(false);
-                    });
-        });
+                return Promise.all(promisesArray);
+            })
+            .then(response => {
+                setIsLoading(false);
+                setBooks(response)
+            });
     }, []);
+
+    console.log(books);
 
     return (
         <div>
@@ -69,7 +79,7 @@ function LoveBooks(){
                         <Spinner animation="grow" variant="secondary" />
                     </Col> :
                     
-                    books.map(element => <BookItem key={element.key} cover={element.cover.large} category={element.subjects[0].name} title={element.title} authors={element.authors[0].name} publishDate={element.publish_date} publishers={element.publishers[0].name} />)
+                    books.map(element => <BookItem key={element.key} category={element.subjects[0]} cover={element.cover ? element.cover.large : NoCoverImg} title={element.title} authors={element.authors} publishDate={element.publish_date} publishers={element.publishers} />)
                     }
                 </Row>
             </Container>
