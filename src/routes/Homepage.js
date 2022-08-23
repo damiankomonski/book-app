@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Slider from "./../components/Slider/Slider";
 import Search from "./../components/Search/Search";
 import LoveBooks from "./../components/LoveBooks/LoveBooks";
-import ITBooks from "./../components/ITBooks/ITBooks";
-import ArtsBooks from "./../components/ArtsBooks/ArtsBooks";
+// import ITBooks from "./../components/ITBooks/ITBooks";
+// import ArtsBooks from "./../components/ArtsBooks/ArtsBooks";
 
 function Homepage(){
     const [books, setBooks] = useState(null);
@@ -17,8 +17,8 @@ function Homepage(){
             <Slider />
             <Search />
             <LoveBooks />
-            <ITBooks />
-            <ArtsBooks />
+            {/* <ITBooks /> */}
+            {/* <ArtsBooks /> */}
         </>
     );
 }

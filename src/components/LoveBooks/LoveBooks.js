@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import "./LoveBooks.scss";
 import BookItem from "./../BookItem/BookItem";
 
 function LoveBooks(){
     let [books, setBooks] = useState([]);
-    let [isLoader, setIsLoaded] = useState(false);
+    let [isLoading, setIsLoading] = useState(true);
 
     function getLoveBooks(){
         let booksIDs = [];
@@ -29,28 +29,33 @@ function LoveBooks(){
 
     useEffect(() => {
         let booksID = [];
+        let booksData = [];
 
         getLoveBooks()
             .then((data) => {
                 booksID = data;
+                let allPromises = [];
 
                 booksID.forEach((element) => {
-                    getBook(element)
-                        .then((response) => {
-                            let booksArray = books;
-                            booksArray.push(response);
+                    allPromises.push(getBook(element));
 
-                            setBooks(booksArray);
-
-                            console.log(books);
-                        });
+                    // getBook(element)
+                    //     .then((response) => {
+                    //         booksData.push(response);
+                    //         console.log(booksData);
+                    //     });
                 });
+
+                Promise.all(allPromises)
+                    .then(values => {
+                        setBooks(values);
+                        setIsLoading(false);
+                    });
         });
-    });
+    }, []);
 
     return (
         <div>
-            
             <Container>
                 <Row>
                     <Col xs={12}>
@@ -58,11 +63,18 @@ function LoveBooks(){
                     </Col>
                 </Row>
                 <Row>
-                    <BookItem />
+                    {isLoading ?
+
+                    <Col xs={12} className="col-12 d-flex justify-content-center mb-5">
+                        <Spinner animation="grow" variant="secondary" />
+                    </Col> :
+                    
+                    books.map(element => <BookItem key={element.key} cover={element.cover.large} category={element.subjects[0].name} title={element.title} authors={element.authors[0].name} publishDate={element.publish_date} publishers={element.publishers[0].name} />)
+                    }
                 </Row>
             </Container>
         </div>
     );
 }
 
-export default LoveBooks;
+export default LoveBooks;   
