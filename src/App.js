@@ -5,6 +5,8 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Homepage from "./routes/Homepage";
 import About from "./routes/About";
+import NotFound from "./routes/NotFound";
+import BookDetails from "./routes/BookDetails"
 
 /*
 API Link:
@@ -18,6 +20,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/:bookID" element={<BookDetails />} />
+        <Route path="page-not-found" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

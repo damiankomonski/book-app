@@ -25,12 +25,18 @@ function ArtsBooks(){
             .then(data => data.entries[0].key.slice(7));
     }
 
-    function getBook(bookID){
-        return fetch("https://openlibrary.org/api/books?jscmd=data&bibkeys=OLID:" + bookID + "&format=json")
+    function getBooks(bookIDs){
+        let bookIDsText = bookIDs.join(',OLID:');
+        let booksDataArray = [];
+
+        return fetch("https://openlibrary.org/api/books?jscmd=data&bibkeys=OLID:" + bookIDsText + "&format=json")
             .then(response => response.json())
             .then((data) => {
-                let key = "OLID:" + bookID;
-                return data[key];
+                for (let property in data){
+                    booksDataArray.push(data[property])
+                }
+
+                return booksDataArray;
             });
     }
 
@@ -48,21 +54,16 @@ function ArtsBooks(){
                 return Promise.all(promisesArray);
             })
             .then(response => {
-                let promisesArray = [];
+                let bookIDs = response;
+                let booksPromise = getBooks(bookIDs);
 
-                response.forEach(element => {
-                    promisesArray.push(getBook(element));
-                });
-
-                return Promise.all(promisesArray);
+                return booksPromise;
             })
             .then(response => {
                 setIsLoading(false);
                 setBooks(response)
             });
     }, []);
-
-    console.log(books);
 
     return (
         <div>

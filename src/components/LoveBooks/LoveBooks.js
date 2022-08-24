@@ -4,6 +4,8 @@ import "./LoveBooks.scss";
 import BookItem from "./../BookItem/BookItem";
 import NoCoverImg from "./../../img/no-cover.png";
 
+//https://openlibrary.org/search.json?q=ddc:00*&sort=new&limit=4&fields=seed
+
 function LoveBooks(){
     let [books, setBooks] = useState([]);
     let [isLoading, setIsLoading] = useState(true);
@@ -11,7 +13,7 @@ function LoveBooks(){
     function getLoveBooks(){
         let worksIDs = [];
 
-        return fetch("http://openlibrary.org/subjects/love.json?limit=4")
+        return fetch("http://openlibrary.org/subjects/love.json?limit=4&published_in=2021-2022")
             .then(response => response.json())
             .then((data) => {
                 worksIDs = data.works.map(element => element.key.slice(7));
@@ -25,18 +27,22 @@ function LoveBooks(){
             .then(data => data.entries[0].key.slice(7));
     }
 
-    function getBook(bookID){
-        return fetch("https://openlibrary.org/api/books?jscmd=data&bibkeys=OLID:" + bookID + "&format=json")
+    function getBooks(bookIDs){
+        let bookIDsText = bookIDs.join(',OLID:');
+        let booksDataArray = [];
+
+        return fetch("https://openlibrary.org/api/books?jscmd=data&bibkeys=OLID:" + bookIDsText + "&format=json")
             .then(response => response.json())
             .then((data) => {
-                let key = "OLID:" + bookID;
-                return data[key];
+                for (let property in data){
+                    booksDataArray.push(data[property])
+                }
+
+                return booksDataArray;
             });
     }
 
     useEffect(() => {
-        let worksIDs = [];
-
         getLoveBooks()
             .then((data) => {
                 let promisesArray = [];
@@ -48,21 +54,16 @@ function LoveBooks(){
                 return Promise.all(promisesArray);
             })
             .then(response => {
-                let promisesArray = [];
+                let bookIDs = response;
+                let booksPromise = getBooks(bookIDs);
 
-                response.forEach(element => {
-                    promisesArray.push(getBook(element));
-                });
-
-                return Promise.all(promisesArray);
+                return booksPromise;
             })
             .then(response => {
                 setIsLoading(false);
                 setBooks(response)
             });
     }, []);
-
-    console.log(books);
 
     return (
         <div>

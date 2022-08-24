@@ -17,4 +17,6 @@ function Homepage(){
     );
 }
 
+//https://openlibrary.org/search.json?q=ddc:00*&sort=new&limit=4&fields=cover_i,edition_count
+
 export default Homepage;
