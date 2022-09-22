@@ -42,6 +42,11 @@ function LoveBooks(){
             });
     }
 
+    // Function which removes "/books/" text from received key
+    function getOnlyBookKey(key){
+        return key.slice(7);
+    }
+
     useEffect(() => {
         getLoveBooks()
             .then((data) => {
@@ -61,7 +66,8 @@ function LoveBooks(){
             })
             .then(response => {
                 setIsLoading(false);
-                setBooks(response)
+                setBooks(response);
+                console.log(response);
             });
     }, []);
 
@@ -80,7 +86,7 @@ function LoveBooks(){
                         <Spinner animation="grow" variant="secondary" />
                     </Col> :
                     
-                    books.map(element => <BookItem key={element.key} category={element.subjects[0]} cover={element.cover ? element.cover.large : NoCoverImg} title={element.title} authors={element.authors} publishDate={element.publish_date} publishers={element.publishers} />)
+                    books.map(element => <BookItem key={getOnlyBookKey(element.key)} bookKey={getOnlyBookKey(element.key)} category={element.subjects[0]} cover={element.cover ? element.cover.large : NoCoverImg} title={element.title} authors={element.authors} publishDate={element.publish_date} publishers={element.publishers} />)
                     }
                 </Row>
             </Container>
