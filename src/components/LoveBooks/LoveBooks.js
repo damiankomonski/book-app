@@ -18,13 +18,19 @@ function LoveBooks(){
             .then((data) => {
                 worksIDs = data.works.map(element => element.key.slice(7));
                 return worksIDs;
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }
 
     function getBookIDFromWork(workID){
         return fetch("https://openlibrary.org/works/" + workID + "/editions.json?limit=1")
             .then(res => res.json())
-            .then(data => data.entries[0].key.slice(7));
+            .then(data => data.entries[0].key.slice(7))
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     function getBooks(bookIDs){
@@ -39,6 +45,9 @@ function LoveBooks(){
                 }
 
                 return booksDataArray;
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }
 
@@ -80,7 +89,7 @@ function LoveBooks(){
                         <Spinner animation="grow" variant="secondary" />
                     </Col> :
                     
-                    books.map(element => <BookItem key={element.key} category={element.subjects[0]} cover={element.cover ? element.cover.large : NoCoverImg} title={element.title} authors={element.authors} publishDate={element.publish_date} publishers={element.publishers} />)
+                    books.map(element => <BookItem key={element.key} itemID={element.key.slice(7)} category={element.subjects[0]} cover={element.cover ? element.cover.large : NoCoverImg} title={element.title} authors={element.authors} publishDate={element.publish_date} publishers={element.publishers} />)
                     }
                 </Row>
             </Container>

@@ -20,8 +20,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/:bookID" element={<BookDetails />} />
-        <Route path="page-not-found" element={<NotFound />} />
+        {/* <Route path="/art" element={<ArtBooks />} /> */}
+        <Route path="/books/:bookID" element={<BookDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

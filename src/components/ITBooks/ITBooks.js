@@ -41,7 +41,6 @@ function ITBooks(){
     }
 
     useEffect(() => {
-        let worksIDs = [];
 
         getITBooks()
             .then((data) => {

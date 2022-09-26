@@ -11,9 +11,9 @@ function BookHero(props) {
                     <BookGallery />
                     
                     <Col xl={6}>
-                        <p>asfasfasf</p>
-                        <h1>Test</h1>
-                        <h2>Test dwa</h2>
+                        <p className="text-grey">{props.category.name}</p>
+                        <h1>{props.title}</h1>
+                        <p></p>
                     </Col>
                 </Row>
             </Container>

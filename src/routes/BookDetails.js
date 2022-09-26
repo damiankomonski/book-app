@@ -5,30 +5,37 @@ import { Col, Spinner } from "react-bootstrap";
 import BookHero from '../components/BookHero/BookHero';
 
 function BookDetails(props) {
-    let [bookDetails, setBookDetails] = useState(null);
+    let [bookInfo, setBookInfo] = useState(null);
+    let [bookInfoDetails, setBookInfoDetails] = useState(null);
     let [isLoading, setIsLoading] = useState(true);
     let { bookID } = useParams();
     let navigate = useNavigate();
 
-    function getBookDetails(bookID){
-        return fetch("https://openlibrary.org/api/books?jscmd=details&format=json&bibkeys=OLID:" + bookID)
+    function getBookInfo(bookID){
+        return fetch("https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=OLID:" + bookID)
             .then(res => res.json())
             .then(data => data["OLID:" + bookID]);
     }
 
-    useEffect(() => {
-        let bookDetailsQuery = getBookDetails(bookID);
+    function getBookInfoDetails(bookID){
+        return fetch("https://openlibrary.org/api/books?format=json&jscmd=details&bibkeys=OLID:" + bookID)
+            .then(res => res.json())
+            .then(data => data["OLID:" + bookID]);
+    }
+    
 
-        bookDetailsQuery.then(response => {
+    useEffect(() => {
+        let bookInfoQuery = getBookInfo(bookID);
+        let bookInfoDetailsQuery = getBookInfoDetails(bookID);
+
+        bookInfoQuery.then(response => {
             if(Object.keys(response).length === 0){
                 navigate("/page-not-found");
             }
 
-            setBookDetails(response);
-            setIsLoading(false);
-            console.log(response);
+            setBookInfo(response);
         });
-    }, [bookID, navigate]);
+    }, []);
 
     return (
             isLoading ?
@@ -38,8 +45,8 @@ function BookDetails(props) {
             </Col> :
 
             <>
-                <Breadcrumbs currentPage={bookDetails.details.title} />
-                <BookHero />
+                <Breadcrumbs currentPage={bookInfo.title} />
+                <BookHero covers={bookInfo.cover} category={bookInfo.subjects[0]} title={bookInfo.title} />
             </>
     );
 }

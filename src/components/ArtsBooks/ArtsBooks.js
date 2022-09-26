@@ -41,7 +41,6 @@ function ArtsBooks(){
     }
 
     useEffect(() => {
-        let worksIDs = [];
 
         getArtsBooks()
             .then((data) => {
