@@ -51,6 +51,11 @@ function LoveBooks(){
             });
     }
 
+    // Function which removes "/books/" text from received key
+    function getOnlyBookKey(key){
+        return key.slice(7);
+    }
+
     useEffect(() => {
         getLoveBooks()
             .then((data) => {
@@ -70,7 +75,8 @@ function LoveBooks(){
             })
             .then(response => {
                 setIsLoading(false);
-                setBooks(response)
+                setBooks(response);
+                console.log(response);
             });
     }, []);
 
