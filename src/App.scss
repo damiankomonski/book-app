@@ -1,5 +1,5 @@
 //Main variables
-// $body-color: #000000;
+$body-color: #6C757D;
 
 // Colors
 // $primary: #000000;
@@ -103,6 +103,14 @@ a{
 }
 
 // Typography
+h1, h2, h3, h4, h5, h6{
+  color: #000000;
+}
+
+h1, .h1{
+  margin-bottom: 1rem;
+}
+
 h2, .h2{
     margin-bottom: 2.5rem;
 }

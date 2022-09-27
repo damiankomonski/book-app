@@ -15,7 +15,7 @@ function BookItem(props){
             </div>
             <div>
                 <p className="fs-14 mb-8 text-grey">{props.category.name}</p>
-                <h3 className="fs-16 mb-8"><Link to={"/books/" + props.itemID} className="text-body">{props.title}</Link></h3>
+                <h3 className="fs-16 mb-8"><Link to={"/books/" + props.itemID} className="text-dark">{props.title}</Link></h3>
                 <p className="fs-14 text-grey mb-4">{props.authors.map(element => element.name).join(', ')}</p>
                 <p className="fs-14 mb-3">{props.publishDate}, {props.publishers[0].name}</p>
             </div>

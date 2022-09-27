@@ -5,6 +5,7 @@ import BookItem from "./../BookItem/BookItem";
 import NoCoverImg from "./../../img/no-cover.png";
 
 //https://openlibrary.org/search.json?q=ddc:00*&sort=new&limit=4&fields=seed
+//https://openlibrary.org/search.json?q=ddc:*&sort=new&limit=4&fields=seed&page=2
 
 function LoveBooks(){
     let [books, setBooks] = useState([]);
@@ -51,11 +52,6 @@ function LoveBooks(){
             });
     }
 
-    // Function which removes "/books/" text from received key
-    function getOnlyBookKey(key){
-        return key.slice(7);
-    }
-
     useEffect(() => {
         getLoveBooks()
             .then((data) => {
@@ -76,7 +72,6 @@ function LoveBooks(){
             .then(response => {
                 setIsLoading(false);
                 setBooks(response);
-                console.log(response);
             });
     }, []);
 
@@ -103,4 +98,4 @@ function LoveBooks(){
     );
 }
 
-export default LoveBooks;   
+export default LoveBooks;

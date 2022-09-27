@@ -11,8 +11,8 @@ function Homepage(){
             <Slider />
             <Search />
             <LoveBooks />
-            {/* <ITBooks /> */}
-            {/* <ArtsBooks /> */}
+            <ITBooks />
+            <ArtsBooks />
         </>
     );
 }

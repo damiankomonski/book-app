@@ -11,6 +11,9 @@ import BookDetails from "./routes/BookDetails"
 /*
 API Link:
 https://openlibrary.org/dev/docs/api/search
+
+Category list:
+https://openlibrary.org/classifications/ddc/list
 */
 
 function App() {

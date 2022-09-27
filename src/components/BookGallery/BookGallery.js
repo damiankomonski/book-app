@@ -4,8 +4,8 @@ import { Col } from "react-bootstrap";
 
 function BookGallery(props) {
     return (
-        <Col xl={4}>
-            <img src="" alt="" />
+        <Col xl={4} className="d-flex justify-content-center">
+            <img src={props.covers} alt="" />
         </Col>
     );
 }
