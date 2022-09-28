@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Pagination, Spinner } from "react-bootstrap";
 import Search from "./../components/Search/Search";
 import BookItem from "./../components/BookItem/BookItem";
 import NoCoverImage from "./../img/no-cover.png";
+import { useSearchParams } from "react-router-dom";
 
 function AllBooks(){
     let [books, setBooks] = useState(null);
     let [booksAmount, setBooksAmount] = useState(null);
     let [isLoading, setIsLoading] = useState(true);
+    let pageBooksSize = 40;
+    let currentPage = useRef(1);
+    let pagesAmount = useRef(null);
+    let [searchParams, setSearchParams] = useSearchParams();
 
-    function getAllWorks(){
-        return fetch("https://openlibrary.org/search.json?q=ddc:*&sort=new&limit=40&offset=40&fields=seed")
+    function getAllWorks(page){
+        let limit = pageBooksSize;
+        let offset = (page - 1) * limit; // calculate page
+
+        return fetch("https://openlibrary.org/search.json?q=ddc:*&sort=new&limit=" + limit + "&offset=" + offset + "&fields=seed")
             .then(response => response.json())
             .then(data => data)
             .catch((error) => {
@@ -32,13 +40,22 @@ function AllBooks(){
             });
     }
 
+    function calculatePagesAmount(pageBookSize, booksAmount){
+        let pagesAmount = 0;
+
+        pagesAmount = Math.ceil(booksAmount / pageBookSize);
+        return pagesAmount;
+    }
+
     useEffect(() => {
         let worksIDs = [];
         let getBooksPromise = null;
+        let page = parseInt(searchParams.get("page")) || 1;
 
-        getAllWorks()
+        getAllWorks(page)
             .then((data) => {
                 setBooksAmount(data.numFound);
+                pagesAmount.current = calculatePagesAmount(pageBooksSize, data.numFound);
 
                 for(let i = 0; i < data.docs.length; i++){
                     worksIDs.push(data.docs[i].seed[0].slice(7));
@@ -48,11 +65,10 @@ function AllBooks(){
                 return getBooksPromise;
             })
             .then(response => {
-                console.log(response);
                 setBooks(response);
                 setIsLoading(false);
             })
-    }, [])
+    }, [pageBooksSize])
 
     return (
         <main>
@@ -95,19 +111,15 @@ function AllBooks(){
 
                         <div className="d-flex justify-content-center mb-80">
                             <Pagination>
-                                <Pagination.Prev />
+                                <Pagination.Item disabled>{"Previous"}</Pagination.Item>
                                 <Pagination.Item>{1}</Pagination.Item>
                                 <Pagination.Ellipsis />
-
-                                <Pagination.Item>{10}</Pagination.Item>
-                                <Pagination.Item>{11}</Pagination.Item>
-                                <Pagination.Item active>{12}</Pagination.Item>
-                                <Pagination.Item>{13}</Pagination.Item>
-                                <Pagination.Item>{14}</Pagination.Item>
-
+                                <Pagination.Item>{5}</Pagination.Item>
+                                <Pagination.Item active>{6}</Pagination.Item>
+                                <Pagination.Item>{7}</Pagination.Item>
                                 <Pagination.Ellipsis />
-                                <Pagination.Item>{20}</Pagination.Item>
-                                <Pagination.Next />
+                                <Pagination.Item>{pagesAmount.current}</Pagination.Item>
+                                <Pagination.Item>{"Next"}</Pagination.Item>
                             </Pagination>
                         </div>
                     </Row>

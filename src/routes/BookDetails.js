@@ -62,7 +62,7 @@ function BookDetails(props) {
             </main> 
             :
             <main>
-                <Breadcrumbs currentPage={bookInfo.title} />
+                {/* <Breadcrumbs currentPage={bookInfo.title} /> */} {/* TODO!!!!!! */}
                 <BookHero 
                     category={bookInfo.subjects ? bookInfo.subjects[0] : null}
                     title={bookInfo.title}

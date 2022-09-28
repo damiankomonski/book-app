@@ -10,9 +10,9 @@ function Homepage(){
         <main>
             <Slider />
             <Search placeholderText="Type book title, author, ..." />
-            <LoveBooks />
-            <ITBooks />
-            <ArtsBooks />
+            {/* <LoveBooks /> */}
+            {/* <ITBooks /> */}
+            {/* <ArtsBooks /> */}
         </main>
     );
 }
