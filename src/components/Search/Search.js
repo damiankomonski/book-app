@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-function Search(){
+function Search(props){
     return (
         <section className="mb-5">
             <Container>
@@ -17,7 +17,7 @@ function Search(){
                             <Form>
                                 <InputGroup>
                                     <Form.Control
-                                    placeholder="Search book"
+                                    placeholder={props.placeholderText}
                                     aria-label="Search book"
                                     aria-describedby="basic-addon2"
                                     />

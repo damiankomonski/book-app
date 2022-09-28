@@ -7,6 +7,7 @@ import Homepage from "./routes/Homepage";
 import About from "./routes/About";
 import NotFound from "./routes/NotFound";
 import BookDetails from "./routes/BookDetails"
+import AllBooks from "./routes/AllBooks";
 
 /*
 API Link:
@@ -23,7 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
-        {/* <Route path="/art" element={<ArtBooks />} /> */}
+        <Route path="/books" element={<AllBooks />} />
         <Route path="/books/:bookID" element={<BookDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

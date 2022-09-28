@@ -71,6 +71,7 @@ function LoveBooks(){
             })
             .then(response => {
                 setIsLoading(false);
+                console.log(response);
                 setBooks(response);
             });
     }, []);
@@ -90,7 +91,15 @@ function LoveBooks(){
                         <Spinner animation="grow" variant="secondary" />
                     </Col> :
                     
-                    books.map(element => <BookItem key={element.key} itemID={element.key.slice(7)} category={element.subjects[0]} cover={element.cover ? element.cover.large : NoCoverImg} title={element.title} authors={element.authors} publishDate={element.publish_date} publishers={element.publishers} />)
+                    books.map((element) => {
+                        return <BookItem key={element.key}
+                            itemID={element.key.slice(7)}
+                            category={element.subjects[0]}
+                            cover={element.cover ? element.cover.large : NoCoverImg}
+                            title={element.title} authors={element.authors}
+                            publishDate={element.publish_date}
+                            publishers={element.publishers} />
+                    })
                     }
                 </Row>
             </Container>

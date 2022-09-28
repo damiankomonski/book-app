@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 
 function Slider(){
     return (
-        <section className="my-5">
+        <section className="mb-3">
             <Container>
                 <Row>
                     <Col xs={12}>

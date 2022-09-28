@@ -11,14 +11,14 @@ function BookHero(props) {
                     <BookGallery covers={props.covers} />
                     
                     <Col xl={6}>
-                        <p>{props.category.name}</p>
+                        <p>{props.category ? props.category.name : null}</p>
                         <h1>{props.title}</h1>
                         <p>{props.description}</p>
 
                         <Row>
                             <Col lg={6}>
                                 <p className="text-dark"><strong>Authors:</strong></p>
-                                <p>{props.authors.map(element => element.name)}</p>
+                                <p>{props.authors ? props.authors.map(element => element.name) : "Sorry, lack of authors."}</p>
                             </Col>
                             <Col lg={6}>
                                 <p className="text-dark"><strong>The year of publishment:</strong></p>

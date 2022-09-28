@@ -7,13 +7,13 @@ import ArtsBooks from "./../components/ArtsBooks/ArtsBooks";
 
 function Homepage(){
     return (
-        <>
+        <main>
             <Slider />
-            <Search />
+            <Search placeholderText="Type book title, author, ..." />
             <LoveBooks />
             <ITBooks />
             <ArtsBooks />
-        </>
+        </main>
     );
 }
 

@@ -5,7 +5,7 @@ import { NavLink, Link } from "react-router-dom";
 
 function Header(){
     return (
-        <header>
+        <header className="mb-40">
             <Navbar bg="white" expand="lg">
                 <Container>
                     <Link to="/" className="navbar-brand">Books Finder</Link>
@@ -14,11 +14,11 @@ function Header(){
                         <Nav className="me-auto">
                             <NavLink to="/" className="nav-link" data-rr-ui-event-key="/">Homepage</NavLink>
                             <NavDropdown title="Categories" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="#">All</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Computer science, knowledge & systems</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Philosophy & psychology</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Religion</NavDropdown.Item>
-                                <NavDropdown.Item href="#">Social sciences</NavDropdown.Item>
+                                <Link to="/books/" className="dropdown-item" role="button" tabIndex="0">All</Link>
+                                <Link to="#" className="dropdown-item" role="button" tabIndex="0">Computer science, knowledge & systems</Link>
+                                <Link to="#" className="dropdown-item" role="button" tabIndex="0">Philosophy & psychology</Link>
+                                <Link to="#" className="dropdown-item" role="button" tabIndex="0">Religion</Link>
+                                <Link to="#" className="dropdown-item" role="button" tabIndex="0">Social sciences</Link>
                             </NavDropdown>
                             <NavLink to="/about" className="nav-link" data-rr-ui-event-key="/about">About project</NavLink>
                         </Nav>
