@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+// import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import { Col, Spinner } from "react-bootstrap";
 import BookHero from '../components/BookHero/BookHero';
 import NoCoverImg from "../img/no-cover.png";

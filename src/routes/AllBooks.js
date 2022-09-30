@@ -3,16 +3,19 @@ import { Container, Row, Col, Pagination, Spinner } from "react-bootstrap";
 import Search from "./../components/Search/Search";
 import BookItem from "./../components/BookItem/BookItem";
 import NoCoverImage from "./../img/no-cover.png";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 function AllBooks(){
     let [books, setBooks] = useState(null);
     let [booksAmount, setBooksAmount] = useState(null);
     let [isLoading, setIsLoading] = useState(true);
     let pageBooksSize = 40;
-    let currentPage = useRef(1);
+    let currentPage = useRef(null);
     let pagesAmount = useRef(null);
     let [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const { search } = useLocation();
 
     function getAllWorks(page){
         let limit = pageBooksSize;
@@ -47,12 +50,17 @@ function AllBooks(){
         return pagesAmount;
     }
 
+    function handlePageClick(event){
+        setIsLoading(true);
+        navigate({pathname: "/books", search: "?page=" + (event.selected + 1)});
+    }
+
     useEffect(() => {
         let worksIDs = [];
         let getBooksPromise = null;
-        let page = parseInt(searchParams.get("page")) || 1;
+        currentPage.current = parseInt(searchParams.get("page")) || 1;
 
-        getAllWorks(page)
+        getAllWorks(currentPage.current)
             .then((data) => {
                 setBooksAmount(data.numFound);
                 pagesAmount.current = calculatePagesAmount(pageBooksSize, data.numFound);
@@ -68,7 +76,7 @@ function AllBooks(){
                 setBooks(response);
                 setIsLoading(false);
             })
-    }, [pageBooksSize])
+    }, [search])
 
     return (
         <main>
@@ -110,21 +118,28 @@ function AllBooks(){
                         })}
 
                         <div className="d-flex justify-content-center mb-80">
-                            <Pagination>
-                                <Pagination.Item disabled>{"Previous"}</Pagination.Item>
-                                <Pagination.Item>{1}</Pagination.Item>
-                                <Pagination.Ellipsis />
-                                <Pagination.Item>{5}</Pagination.Item>
-                                <Pagination.Item active>{6}</Pagination.Item>
-                                <Pagination.Item>{7}</Pagination.Item>
-                                <Pagination.Ellipsis />
-                                <Pagination.Item>{pagesAmount.current}</Pagination.Item>
-                                <Pagination.Item>{"Next"}</Pagination.Item>
-                            </Pagination>
+                            <ReactPaginate
+                                pageCount={pagesAmount.current}
+                                forcePage={currentPage.current - 1} 
+                                containerClassName="pagination" 
+                                pageClassName="page-item" 
+                                pageLinkClassName="page-link" 
+                                activeClassName="active" 
+                                previousClassName="page-item"
+                                previousLinkClassName="page-link" 
+                                nextClassName="page-item" 
+                                nextLinkClassName="page-link" 
+                                breakClassName="page-item" 
+                                breakLinkClassName="page-link"
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={3} 
+                                onPageChange={handlePageClick}
+                            />
                         </div>
                     </Row>
                 </Container>
             </section>
+
             }
         </main>
     );
