@@ -15,10 +15,9 @@ function Header(){
                             <NavLink to="/" className="nav-link" data-rr-ui-event-key="/">Homepage</NavLink>
                             <NavDropdown title="Categories" id="navbarScrollingDropdown">
                                 <Link to="/books/" className="dropdown-item" role="button" tabIndex="0">All</Link>
-                                {/* <Link to="#" className="dropdown-item" role="button" tabIndex="0">Computer science, knowledge & systems</Link> */}
-                                {/* <Link to="#" className="dropdown-item" role="button" tabIndex="0">Philosophy & psychology</Link> */}
-                                {/* <Link to="#" className="dropdown-item" role="button" tabIndex="0">Religion</Link> */}
-                                {/* <Link to="#" className="dropdown-item" role="button" tabIndex="0">Social sciences</Link> */}
+                                <Link to="/computer-science" className="dropdown-item" role="button" tabIndex="0">Computer science, knowledge & systems</Link>
+                                <Link to="/philosophy-and-psychology" className="dropdown-item" role="button" tabIndex="0">Philosophy & psychology</Link>
+                                <Link to="/religion" className="dropdown-item" role="button" tabIndex="0">Religion</Link>
                             </NavDropdown>
                             <NavLink to="/about" className="nav-link" data-rr-ui-event-key="/about">About project</NavLink>
                         </Nav>

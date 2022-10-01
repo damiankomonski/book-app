@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Pagination, Spinner } from "react-bootstrap";
-import Search from "./../components/Search/Search";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
+// import Search from "./../components/Search/Search";
 import BookItem from "./../components/BookItem/BookItem";
 import NoCoverImage from "./../img/no-cover.png";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
-function AllBooks(){
+function ComputerScienceBooks(){
     let [books, setBooks] = useState(null);
     let [booksAmount, setBooksAmount] = useState(null);
     let [isLoading, setIsLoading] = useState(true);
     let pageBooksSize = 40;
     let currentPage = useRef(null);
     let pagesAmount = useRef(null);
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const { search } = useLocation();
 
@@ -21,7 +21,7 @@ function AllBooks(){
         let limit = pageBooksSize;
         let offset = (page - 1) * limit; // calculate page
 
-        return fetch("https://openlibrary.org/search.json?q=ddc:*%20language:eng&sort=new&limit=" + limit + "&offset=" + offset + "&fields=seed")
+        return fetch("https://openlibrary.org/search.json?q=ddc:0*%20language:eng&sort=new&limit=" + limit + "&offset=" + offset + "&fields=seed")
             .then(response => response.json())
             .then(data => data)
             .catch((error) => {
@@ -52,7 +52,7 @@ function AllBooks(){
 
     function handlePageClick(event){
         setIsLoading(true);
-        navigate({pathname: "/books", search: "?page=" + (event.selected + 1)});
+        navigate({pathname: "/computer-science", search: "?page=" + (event.selected + 1)});
     }
 
     useEffect(() => {
@@ -84,7 +84,7 @@ function AllBooks(){
                 <Container>
                     <Row>
                         <Col xs={12} className="d-flex justify-content-between align-items-end">
-                            <h1>All books</h1>
+                            <h1>Computer science, knowledge & systems</h1>
                             {booksAmount ? <p>{booksAmount} collection of books</p> : null}
                         </Col>
                     </Row>
@@ -145,4 +145,4 @@ function AllBooks(){
     );
 }
 
-export default AllBooks;
+export default ComputerScienceBooks;

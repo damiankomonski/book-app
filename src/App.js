@@ -8,6 +8,14 @@ import About from "./routes/About";
 import NotFound from "./routes/NotFound";
 import BookDetails from "./routes/BookDetails"
 import AllBooks from "./routes/AllBooks";
+import ComputerScienceBooks from "./routes/ComputerScienceBooks";
+import PhilosophyAndPsychologyBooks from "./routes/PhilosophyAndPsychologyBooks";
+import ReligionBooks from './routes/ReligionBooks';
+
+const categories = {
+  "000": "Computer science, information & general works"
+};
+const CategoryContext = React.createContext();
 
 /*
 API Link:
@@ -25,6 +33,9 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
         <Route path="/books" element={<AllBooks />} />
+        <Route path="/computer-science" element={<ComputerScienceBooks />} />
+        <Route path="/philosophy-and-psychology" element={<PhilosophyAndPsychologyBooks />} />
+        <Route path="/religion" element={<ReligionBooks />} />
         <Route path="/books/:bookID" element={<BookDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
