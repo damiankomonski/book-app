@@ -11,11 +11,8 @@ import AllBooks from "./routes/AllBooks";
 import ComputerScienceBooks from "./routes/ComputerScienceBooks";
 import PhilosophyAndPsychologyBooks from "./routes/PhilosophyAndPsychologyBooks";
 import ReligionBooks from './routes/ReligionBooks';
-
-const categories = {
-  "000": "Computer science, information & general works"
-};
-const CategoryContext = React.createContext();
+import categories from "./categories";
+import { CategoriesProvider } from "./context/categoryContext";
 
 /*
 API Link:
@@ -28,18 +25,20 @@ https://openlibrary.org/classifications/ddc/list
 function App() {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/books" element={<AllBooks />} />
-        <Route path="/computer-science" element={<ComputerScienceBooks />} />
-        <Route path="/philosophy-and-psychology" element={<PhilosophyAndPsychologyBooks />} />
-        <Route path="/religion" element={<ReligionBooks />} />
-        <Route path="/books/:bookID" element={<BookDetails />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
+      <CategoriesProvider value={categories}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/books" element={<AllBooks />} />
+          <Route path="/computer-science" element={<ComputerScienceBooks />} />
+          <Route path="/philosophy-and-psychology" element={<PhilosophyAndPsychologyBooks />} />
+          <Route path="/religion" element={<ReligionBooks />} />
+          <Route path="/books/:bookID" element={<BookDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </CategoriesProvider>
     </>
   );
 }

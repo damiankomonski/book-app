@@ -21,9 +21,12 @@ function ComputerScienceBooks(){
         let limit = pageBooksSize;
         let offset = (page - 1) * limit; // calculate page
 
-        return fetch("https://openlibrary.org/search.json?q=ddc:0*%20language:eng&sort=new&limit=" + limit + "&offset=" + offset + "&fields=seed")
+        return fetch("https://openlibrary.org/search.json?q=ddc:0*%20language:eng&sort=new&limit=" + limit + "&offset=" + offset + "&fields=*")
             .then(response => response.json())
-            .then(data => data)
+            .then(data => {
+                console.log(data);
+                return data;
+            })
             .catch((error) => {
                 alert("Sorry, overloaded server. Refresh the page.");
             });
