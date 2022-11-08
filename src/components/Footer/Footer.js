@@ -15,10 +15,10 @@ function Footer(){
 
                         <ul className="nav col-md-4 justify-content-end">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link px-2 text-muted">Homepage</Link>
+                                {/* <Link to="/" className="nav-link px-2 text-muted">Homepage</Link> */}
                             </li>
                             <li className="nav-item">
-                                <Link to="/about" className="nav-link px-2 text-muted">About project</Link>    
+                                {/* <Link to="/about" className="nav-link px-2 text-muted">About project</Link>     */}
                             </li>
                         </ul>
                     </Col>
